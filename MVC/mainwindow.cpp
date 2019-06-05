@@ -25,11 +25,13 @@ MainWindow::MainWindow(QWidget *parent)
     qDebug() << menuBar->sizePolicy();
 
 
-    connect(content, &Content::logMessaging, this, [this](const QString& msg){
-        statusBar->showMessage(msg, 10000);
-    });
+    connect(content, &Content::logMessaging,
+            this   , [this] (const QString& msg) {
+                         statusBar->showMessage(msg, 10000);
+                     }
+    );
 
-    //content(this, &MainWindow::processingText, content, QOverload<>::of(&Content::processText));
+    content(this, &MainWindow::processingText, content, QOverload<>::of(&Content::processText));
 }
 
 

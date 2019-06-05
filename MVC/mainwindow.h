@@ -1,11 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QWidget>
-#include <QMenuBar>
-#include <QStatusBar>
-#include <QApplication>
-
+#include <QtWidgets>
 #include "content.h"
 
 class MainWindow : public QWidget
@@ -14,7 +10,6 @@ class MainWindow : public QWidget
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    //MainWindow() = default;
     ~MainWindow() override = default;
 
 protected:

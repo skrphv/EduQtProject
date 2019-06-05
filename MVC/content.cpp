@@ -22,10 +22,16 @@ Content::Content(QWidget *parent) : QWidget(parent)
     vsplitter->setStretchFactor(0, 3);
     vsplitter->setStretchFactor(1, 1);
 
+    auto hLayout { new QHBoxLayout{} };
+    hLayout->addWidget(checkBoxOneSymbol);
+    hLayout->addWidget(checkBoxTwoSymbols);
+    hLayout->addWidget(checkBoxCaseSensitive);
+    hLayout->setMargin(5);
 
-    auto layout {new QVBoxLayout{this}};
-    layout->setMargin(0);
-    layout->addWidget(vsplitter);
+    auto vlayout {new QVBoxLayout{this}};
+    vlayout->addLayout(hLayout);
+    vlayout->addWidget(vsplitter);
+    vlayout->setMargin(0);
 }
 
 void Content::logMsg(const QString &msg)
@@ -37,7 +43,7 @@ void Content::logMsg(const QString &msg)
     emit logMessaging(msg);
 }
 
-void Content::processText(const QString &text)
+void Content::processText(const QString &text, const ProcessingSettings& settings)
 {
     //QString simpleText {text.simplified()};
     QStringList list { text.toLower().split(QRegExp("\\s"), QString::SkipEmptyParts) };
@@ -71,5 +77,11 @@ void Content::processTextFile (const QString &filename)
     textEdit->setPlainText(text);
 
     listModel->clear();
-    processText(text);
+
+    ProcessingSettings settings {};
+    settings.oneSymbol     = checkBoxOneSymbol ->isTristate();
+    settings.twoSymbols    = checkBoxTwoSymbols->isTristate();
+    settings.caseSensetive = checkBoxOneSymbol ->isTristate();
+
+    processText(text, settings);
 }

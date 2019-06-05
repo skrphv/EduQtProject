@@ -1,13 +1,7 @@
 #ifndef CONTENT_H
 #define CONTENT_H
 
-#include <QWidget>
-#include <QTextEdit>
-#include <QListView>
-#include <QListWidget>
-#include <QSplitter>
-#include <QString>
-#include <QStandardItemModel>
+#include <QtWidgets>
 
 class Content : public QWidget
 {
@@ -17,19 +11,26 @@ public:
     ~Content() override = default;
 
 protected:
-    QTextEdit*   textEdit   {new QTextEdit};
-    QListView*   listView   {new QListView};
-    QSplitter*   hsplitter  {new QSplitter(Qt::Horizontal)  };
-    QSplitter*   vsplitter  {new QSplitter(Qt::Vertical)  };
-    QTextEdit*   loggerEdit {new QTextEdit};
-
-    QStandardItemModel* listModel {new QStandardItemModel};
+    QTextEdit*          textEdit              {new QTextEdit                   };
+    QListView*          listView              {new QListView                   };
+    QSplitter*          hsplitter             {new QSplitter(Qt::Horizontal)   };
+    QSplitter*          vsplitter             {new QSplitter(Qt::Vertical  )   };
+    QTextEdit*          loggerEdit            {new QTextEdit                   };
+    QCheckBox*          checkBoxOneSymbol     {new QCheckBox {"Single Symbol" }};
+    QCheckBox*          checkBoxTwoSymbols    {new QCheckBox {"Two Symbols"   }};
+    QCheckBox*          checkBoxCaseSensitive {new QCheckBox {"Case Sensetive"}};
+    QStandardItemModel* listModel             {new QStandardItemModel          };
 
     void logMsg (const QString& msg);
 
 private:
-    void processText (const QString& text);
+    struct ProcessingSettings {
+        bool oneSymbol {false};
+        bool twoSymbols {false};
+        bool caseSensetive {false};
+    };
 
+    void processText (const QString& text, const ProcessingSettings& settings);
 
 public slots:
     void processTextFile (const QString& filename);
