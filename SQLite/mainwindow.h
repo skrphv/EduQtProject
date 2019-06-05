@@ -1,15 +1,28 @@
-#ifndef WIDGET_H
-#define WIDGET_H
+#pragma once
 
-#include <QWidget>
+#include <QtWidgets>
+#include <content.h>
 
-class Widget : public QWidget
+class MainWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    Widget(QWidget *parent = 0);
-    ~Widget();
-};
+    MainWindow(QWidget *parent = nullptr);
+    virtual ~MainWindow() override = default;
 
-#endif // WIDGET_H
+protected:
+    void createStatusBar();
+    void createMenuBar();
+
+    void onOpen();
+
+protected:
+    QMenuBar* menuBar     {nullptr};
+    QStatusBar* statusBar {nullptr};
+    Content* content      {nullptr};
+
+signals:
+    void openingDatabaseFile(const QString&);
+    void runningSignal();
+};

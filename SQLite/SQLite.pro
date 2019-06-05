@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -25,11 +25,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        content.cpp \
+        dbwrapper.cpp \
         main.cpp \
-        widget.cpp
+        mainwindow.cpp
 
 HEADERS += \
-        widget.h
+    content.h \
+    dbwrapper.h \
+    mainwindow.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

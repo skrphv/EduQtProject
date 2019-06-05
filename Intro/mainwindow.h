@@ -1,15 +1,29 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QWidget>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QLabel>
+#include <QString>
 
 class MainWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = 0);
-    ~MainWindow();
-};
+    explicit MainWindow(QWidget *parent = nullptr);
+    ~MainWindow() = default;
 
-#endif // MAINWINDOW_H
+    void createSelf();
+
+protected:
+    QPushButton* btn;
+    QLineEdit* edit;
+    QLabel* label;
+
+signals:
+    void editTextProxy(const QString&);
+
+public slots:
+    void setTitleForMainWindow();
+};

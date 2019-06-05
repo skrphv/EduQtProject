@@ -1,15 +1,29 @@
-#ifndef MAINWIDGET_H
-#define MAINWIDGET_H
-
-#include <QWidget>
+#pragma once
+#include <QtWidgets>
+#include <QtNetwork>
 
 class MainWidget : public QWidget
 {
     Q_OBJECT
 
 public:
-    MainWidget(QWidget *parent = 0);
-    ~MainWidget();
-};
+    MainWidget(QWidget *parent = nullptr);
+    ~MainWidget() override = default;
 
-#endif // MAINWIDGET_H
+    QPushButton* startBtn = new QPushButton("Start");
+    QPushButton* stopBtn = new QPushButton("Stop");
+    QTextEdit* logEdit = new QTextEdit;
+
+    QTcpServer* server = new QTcpServer(this);
+
+
+    void onStart();
+    void onStop();
+
+    void onNewConnection();
+    void onReadyRead();
+
+    void logMsg (const QString& msg);
+
+
+};
